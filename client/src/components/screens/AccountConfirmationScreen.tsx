@@ -1,15 +1,18 @@
 import { Card, CardContent } from "@/components/ui/card";
-import { CheckCircle } from "lucide-react";
+import { CheckCircle, ArrowLeft } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { UserData } from "@/lib/types";
 
 interface AccountConfirmationScreenProps {
   userData: UserData;
   onViewServices: () => void;
+  onBack: () => void;
 }
 
 export default function AccountConfirmationScreen({
   userData,
-  onViewServices
+  onViewServices,
+  onBack
 }: AccountConfirmationScreenProps) {
   return (
     <div className="min-h-screen flex items-center justify-center px-4" style={{ fontFamily: 'Barlow, sans-serif' }}>
@@ -45,11 +48,43 @@ export default function AccountConfirmationScreen({
                 <button
                   onClick={onViewServices}
                   className="text-primary font-semibold hover:underline"
+                  style={{ color: '#4b289e' }}
                 >
                   aquí
                 </button>
                 .
               </p>
+            </div>
+
+            <div className="flex justify-between">
+              <Button
+                onClick={onBack}
+                size="lg"
+                variant="outline"
+                className="font-semibold px-8 py-3"
+                style={{ 
+                  fontFamily: 'Barlow, sans-serif',
+                  borderColor: '#4b289e',
+                  color: '#4b289e'
+                }}
+              >
+                <ArrowLeft className="w-5 h-5 mr-2" />
+                Regresar
+              </Button>
+
+              <Button
+                onClick={onViewServices}
+                size="lg"
+                className="font-semibold px-8 py-3"
+                style={{ 
+                  backgroundColor: '#4b289e', 
+                  color: '#fbd72c', 
+                  fontFamily: 'Barlow, sans-serif',
+                  border: 'none'
+                }}
+              >
+                Ver servicios
+              </Button>
             </div>
           </CardContent>
         </Card>

@@ -1,18 +1,20 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { CheckCircle, UserPlus } from "lucide-react";
+import { CheckCircle, UserPlus, ArrowLeft } from "lucide-react";
 import { SelectedProduct } from "@/lib/types";
 
 interface SuccessScreenProps {
   selectedProducts: SelectedProduct[];
   onCreateAccount: () => void;
   onViewServices: () => void;
+  onBack: () => void;
 }
 
 export default function SuccessScreen({
   selectedProducts,
   onCreateAccount,
-  onViewServices
+  onViewServices,
+  onBack
 }: SuccessScreenProps) {
   const groupedProducts = selectedProducts.reduce((acc, product) => {
     if (!acc[product.bank]) {
@@ -83,11 +85,60 @@ export default function SuccessScreen({
                 <button
                   onClick={onViewServices}
                   className="text-primary font-semibold hover:underline"
+                  style={{ color: '#4b289e' }}
                 >
                   aquí
                 </button>
                 .
               </p>
+            </div>
+
+            <div className="flex justify-between items-center">
+              <Button
+                onClick={onBack}
+                size="lg"
+                variant="outline"
+                className="font-semibold px-8 py-3"
+                style={{ 
+                  fontFamily: 'Barlow, sans-serif',
+                  borderColor: '#4b289e',
+                  color: '#4b289e'
+                }}
+              >
+                <ArrowLeft className="w-5 h-5 mr-2" />
+                Regresar
+              </Button>
+
+              <div className="flex flex-col sm:flex-row gap-4">
+                <Button
+                  onClick={onCreateAccount}
+                  size="lg"
+                  className="font-semibold px-8 py-3"
+                  style={{ 
+                    backgroundColor: '#4b289e', 
+                    color: '#fbd72c', 
+                    fontFamily: 'Barlow, sans-serif',
+                    border: 'none'
+                  }}
+                >
+                  <UserPlus className="w-5 h-5 mr-2" />
+                  Crear cuenta
+                </Button>
+                
+                <Button
+                  onClick={onViewServices}
+                  size="lg"
+                  variant="outline"
+                  className="font-semibold px-8 py-3"
+                  style={{ 
+                    fontFamily: 'Barlow, sans-serif',
+                    borderColor: '#4b289e',
+                    color: '#4b289e'
+                  }}
+                >
+                  Ver mis servicios
+                </Button>
+              </div>
             </div>
           </CardContent>
         </Card>

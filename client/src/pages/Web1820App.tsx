@@ -24,6 +24,12 @@ export default function Web1820App() {
     setCurrentScreen(screen);
   };
 
+  const goBack = () => {
+    if (currentScreen > 1) {
+      setCurrentScreen((currentScreen - 1) as Screen);
+    }
+  };
+
   const updateUserData = (data: Partial<UserData>) => {
     setUserData(prev => ({ ...prev, ...data }));
   };
@@ -42,6 +48,7 @@ export default function Web1820App() {
             selectedProducts={selectedProducts}
             onProductsChange={updateSelectedProducts}
             onNext={() => goToScreen(3)}
+            onBack={goBack}
           />
         );
       case 3:
@@ -50,6 +57,7 @@ export default function Web1820App() {
             userData={userData}
             onUserDataChange={updateUserData}
             onNext={() => goToScreen(4)}
+            onBack={goBack}
           />
         );
       case 4:
@@ -60,6 +68,7 @@ export default function Web1820App() {
             selectedProducts={selectedProducts}
             onCreateAccount={() => goToScreen(6)}
             onViewServices={() => goToScreen(8)}
+            onBack={goBack}
           />
         );
       case 6:
@@ -68,6 +77,7 @@ export default function Web1820App() {
             userData={userData}
             onUserDataChange={updateUserData}
             onNext={() => goToScreen(7)}
+            onBack={goBack}
           />
         );
       case 7:
@@ -75,6 +85,7 @@ export default function Web1820App() {
           <AccountConfirmationScreen
             userData={userData}
             onViewServices={() => goToScreen(8)}
+            onBack={goBack}
           />
         );
       case 8:

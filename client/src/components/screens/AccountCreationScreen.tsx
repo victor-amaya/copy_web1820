@@ -4,19 +4,21 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Card, CardContent } from "@/components/ui/card";
-import { UserPlus } from "lucide-react";
+import { UserPlus, ArrowLeft } from "lucide-react";
 import { UserData } from "@/lib/types";
 
 interface AccountCreationScreenProps {
   userData: UserData;
   onUserDataChange: (data: Partial<UserData>) => void;
   onNext: () => void;
+  onBack: () => void;
 }
 
 export default function AccountCreationScreen({
   userData,
   onUserDataChange,
-  onNext
+  onNext,
+  onBack
 }: AccountCreationScreenProps) {
   const [formData, setFormData] = useState({
     fechaNacimiento: userData.fechaNacimiento || '',
@@ -236,7 +238,22 @@ export default function AccountCreationScreen({
               </div>
             </div>
 
-            <div className="flex justify-center mt-8">
+            <div className="flex justify-between mt-8">
+              <Button
+                onClick={onBack}
+                size="lg"
+                variant="outline"
+                className="font-semibold px-8 py-3"
+                style={{ 
+                  fontFamily: 'Barlow, sans-serif',
+                  borderColor: '#4b289e',
+                  color: '#4b289e'
+                }}
+              >
+                <ArrowLeft className="w-5 h-5 mr-2" />
+                Regresar
+              </Button>
+
               <Button
                 onClick={handleNext}
                 disabled={!isValid}

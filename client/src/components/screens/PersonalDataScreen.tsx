@@ -3,19 +3,21 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent } from "@/components/ui/card";
-import { User, ArrowRight } from "lucide-react";
+import { User, ArrowRight, ArrowLeft } from "lucide-react";
 import { UserData } from "@/lib/types";
 
 interface PersonalDataScreenProps {
   userData: UserData;
   onUserDataChange: (data: Partial<UserData>) => void;
   onNext: () => void;
+  onBack: () => void;
 }
 
 export default function PersonalDataScreen({
   userData,
   onUserDataChange,
-  onNext
+  onNext,
+  onBack
 }: PersonalDataScreenProps) {
   const [formData, setFormData] = useState(userData);
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -171,7 +173,22 @@ export default function PersonalDataScreen({
               </div>
             </div>
 
-            <div className="flex justify-center mt-8">
+            <div className="flex justify-between mt-8">
+              <Button
+                onClick={onBack}
+                size="lg"
+                variant="outline"
+                className="font-semibold px-8 py-3"
+                style={{ 
+                  fontFamily: 'Barlow, sans-serif',
+                  borderColor: '#4b289e',
+                  color: '#4b289e'
+                }}
+              >
+                <ArrowLeft className="w-5 h-5 mr-2" />
+                Regresar
+              </Button>
+
               <Button
                 onClick={handleNext}
                 disabled={!isValid}

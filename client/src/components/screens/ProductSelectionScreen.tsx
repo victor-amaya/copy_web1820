@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Card, CardContent } from "@/components/ui/card";
-import { Building2, ArrowRight } from "lucide-react";
+import { Building2, ArrowRight, ArrowLeft } from "lucide-react";
 import { SelectedProduct, Bank } from "@/lib/types";
 import bbvaLogo from "@assets/BBVA_1750612279628.png";
 import bcpLogo from "@assets/BCP_1750612075168.png";
@@ -13,6 +13,7 @@ interface ProductSelectionScreenProps {
   selectedProducts: SelectedProduct[];
   onProductsChange: (products: SelectedProduct[]) => void;
   onNext: () => void;
+  onBack: () => void;
 }
 
 const banks: Bank[] = [
@@ -32,7 +33,8 @@ const productTypes = [
 export default function ProductSelectionScreen({
   selectedProducts,
   onProductsChange,
-  onNext
+  onNext,
+  onBack
 }: ProductSelectionScreenProps) {
   const [localProducts, setLocalProducts] = useState<SelectedProduct[]>(selectedProducts);
 
@@ -162,7 +164,22 @@ export default function ProductSelectionScreen({
               </table>
             </div>
 
-            <div className="flex justify-center mt-8">
+            <div className="flex justify-between mt-8">
+              <Button
+                onClick={onBack}
+                size="lg"
+                variant="outline"
+                className="font-semibold px-8 py-3"
+                style={{ 
+                  fontFamily: 'Barlow, sans-serif',
+                  borderColor: '#4b289e',
+                  color: '#4b289e'
+                }}
+              >
+                <ArrowLeft className="w-5 h-5 mr-2" />
+                Regresar
+              </Button>
+              
               <Button
                 onClick={handleNext}
                 size="lg"
