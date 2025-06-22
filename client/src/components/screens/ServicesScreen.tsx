@@ -10,6 +10,7 @@ import {
   Info, 
   Home 
 } from "lucide-react";
+import asbancLogo from "@assets/Asbanc_1750611947153.png";
 
 interface ServicesScreenProps {
   onGoHome: () => void;
@@ -93,13 +94,11 @@ export default function ServicesScreen({ onGoHome }: ServicesScreenProps) {
             <div className="mb-6">
               <p className="text-gray-600 mb-4">Servicio diseñado y ofrecido por Asbanc</p>
               <div className="flex items-center justify-center">
-                <div className="w-16 h-16 bg-primary rounded-lg flex items-center justify-center mr-4">
-                  <span className="text-white font-bold">AB</span>
-                </div>
-                <div className="text-left">
-                  <div className="font-semibold text-gray-900">Asociación de</div>
-                  <div className="font-semibold text-primary">Bancos del Perú</div>
-                </div>
+                <img 
+                  src={asbancLogo} 
+                  alt="Asociación de Bancos del Perú" 
+                  className="h-12 w-auto object-contain"
+                />
               </div>
             </div>
 
