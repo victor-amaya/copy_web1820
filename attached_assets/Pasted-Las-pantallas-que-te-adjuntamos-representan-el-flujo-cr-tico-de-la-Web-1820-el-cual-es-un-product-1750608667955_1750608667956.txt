@@ -1,0 +1,17 @@
+Las pantallas que te adjuntamos representan el flujo crítico de la "Web 1820", el cual es un producto web diseñado para bloquear en línea productos bancarios ante robos y fraudes. Queremos que nos muestres como funcionaría el flujo siguiendo el siguiente orden de pantallas: 
+
+Pantalla 1: Permitir que, al hacer clic en el botón "Bloquea Aquí", el usuario sea dirigido a la Pantalla 2.
+
+Pantalla 2: Permitir seleccionar los checkboxes mostrados y hacer clic en "Siguiente", lo cual debe llevar a la Pantalla 3. Mejora aspecto visual de la tabla con checkboxes 
+
+Pantalla 3: Habilitar y hacer obligatorio el llenado de todos los datos solicitados. Solo cuando los campos estén completos, se debe habilitar el botón "Siguiente", que lleva a la Pantalla 4.
+
+Pantalla 4: El logo de "En proceso" debe ser dinámico, al igual que los 4 mensajes informativos que aparecen debajo mientras se carga la solicitud. La solicitud de bloqueo continúa procesándose hasta completarse con éxito, momento en el cual se mostrará la Pantalla 5.
+
+Pantalla 5: En esta pantalla de confirmación de solicitud de bloqueo se deberá indicar los productos que fueron bloqueados (se deberá mostrar una lista con checkboxes a la izquierda, seguido por el nombre del banco y los productos que fueron bloqueados -es decir tarjetas de débito, crédito, aplicativos, billeteras digitales). La palabra "aquí" debe redirigir a la página web donde se muestran los servicios adicionales de WEB 1820 (nombre del producto). Además, se ofrece la opción de crear cuenta, la cual lleva a la Pantalla 6.
+
+Pantalla 6: En esta sección de creación de cuenta, se deben precargar los datos ingresados anteriormente y solicitar información adicional como: "fecha de nacimiento", "contraseña", "valida tu contraseña", y marcar el checkbox "Aceptas compartir tus datos". El usuario deberá completar todos estos campos para poder hacer clic en "Siguiente". El checkbox "Aceptas recibir anuncios y comunicaciones" es opcional y no condiciona el avance del proceso.
+
+Pantalla 7: Una vez creada la cuenta, se mostrará esta pantalla con la confirmación del usuario (su DNI) y el correo previamente registrado. Al hacer clic en la palabra "aquí", se redirigirá a la página web con los servicios adicionales de WEB 1820.
+
+Si consideras que en alguna pantalla (imagen) se puede mejorar el aspecto visual para hacerlo más marketero, procede. El entregable es el trabajo final para un curso de Product Management
