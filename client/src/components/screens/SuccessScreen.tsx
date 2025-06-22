@@ -77,52 +77,6 @@ export default function SuccessScreen({
                 Crea una cuenta
               </Button>
             </div>
-
-            <div className="bg-primary/5 border border-primary/20 rounded-xl p-6 mb-8">
-              <p className="text-gray-700">
-                ¿Tiene consultas adicionales?<br />
-                Conoce todos nuestros servicios{' '}
-                <button
-                  onClick={onViewServices}
-                  className="text-primary font-semibold hover:underline"
-                  style={{ color: '#4b289e' }}
-                >
-                  aquí
-                </button>
-                .
-              </p>
-            </div>
-
-            <div className="flex justify-between items-center">
-              <Button
-                onClick={onBackToSelection}
-                size="lg"
-                variant="outline"
-                className="font-semibold px-8 py-3"
-                style={{ 
-                  fontFamily: 'Barlow, sans-serif',
-                  borderColor: '#4b289e',
-                  color: '#4b289e'
-                }}
-              >
-                <ArrowLeft className="w-5 h-5 mr-2" />
-                Regresar
-              </Button>
-
-              <Button
-                onClick={onViewServices}
-                size="lg"
-                variant="outline"
-                className="font-semibold px-8 py-3"
-                style={{ 
-                  fontFamily: 'Barlow, sans-serif',
-                  borderColor: '#4b289e',
-                  color: '#4b289e'
-                }}
-              >
-                Ver mis servicios
-              </Button>
-            </div>
           </CardContent>
         </Card>
       </div>
