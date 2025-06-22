@@ -39,13 +39,13 @@ export default function LandingScreen({ onNext }: LandingScreenProps) {
           </Button>
         </div>
 
-        <div className="flex justify-center mt-12">
-          <div className="relative">
+        <div className="flex justify-center mt-8 md:mt-12 px-4">
+          <div className="relative w-full max-w-4xl">
             <img 
               src={imageUrl1820} 
               alt="Web 1820 - Sistema de bloqueo de productos bancarios" 
-              className="max-w-full h-auto rounded-lg shadow-2xl"
-              style={{ maxWidth: '800px' }}
+              className="w-full h-auto rounded-lg shadow-2xl object-contain"
+              style={{ maxHeight: '500px' }}
             />
           </div>
         </div>
