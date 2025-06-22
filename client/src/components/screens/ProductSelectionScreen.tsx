@@ -4,6 +4,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Card, CardContent } from "@/components/ui/card";
 import { Building2, ArrowRight } from "lucide-react";
 import { SelectedProduct, Bank } from "@/lib/types";
+import bbvaLogo from "@assets/BBVA_1750611748261.png";
 
 interface ProductSelectionScreenProps {
   selectedProducts: SelectedProduct[];
@@ -101,9 +102,19 @@ export default function ProductSelectionScreen({
                     <tr key={bank.code} className="hover:bg-gray-50 transition-colors">
                       <td className={`py-4 px-6 ${index < banks.length - 1 ? 'border-b' : ''}`}>
                         <div className="flex items-center">
-                          <div className={`w-10 h-10 ${bank.color} rounded-lg flex items-center justify-center mr-3`}>
-                            <span className="text-white font-bold text-sm">{bank.shortName}</span>
-                          </div>
+                          {bank.code === 'bbva' ? (
+                            <div className="w-10 h-10 rounded-lg flex items-center justify-center mr-3 bg-white">
+                              <img 
+                                src={bbvaLogo} 
+                                alt="BBVA" 
+                                className="w-8 h-auto object-contain"
+                              />
+                            </div>
+                          ) : (
+                            <div className={`w-10 h-10 ${bank.color} rounded-lg flex items-center justify-center mr-3`}>
+                              <span className="text-white font-bold text-sm">{bank.shortName}</span>
+                            </div>
+                          )}
                           <span className="font-medium">{bank.name}</span>
                         </div>
                       </td>
