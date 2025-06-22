@@ -97,7 +97,8 @@ export default function ServicesScreen({ onGoHome }: ServicesScreenProps) {
                 <img 
                   src={asbancLogo} 
                   alt="Asociación de Bancos del Perú" 
-                  className="h-12 w-auto object-contain"
+                  className="w-auto h-auto max-w-full object-contain"
+                  style={{ zoom: '100%' }}
                 />
               </div>
             </div>
