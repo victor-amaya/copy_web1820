@@ -6,6 +6,7 @@ import { Building2, ArrowRight } from "lucide-react";
 import { SelectedProduct, Bank } from "@/lib/types";
 import bbvaLogo from "@assets/BBVA_1750611748261.png";
 import bcpLogo from "@assets/BCP_1750612075168.png";
+import interbankLogo from "@assets/Interbank_1750612206510.png";
 
 interface ProductSelectionScreenProps {
   selectedProducts: SelectedProduct[];
@@ -116,6 +117,14 @@ export default function ProductSelectionScreen({
                               <img 
                                 src={bcpLogo} 
                                 alt="BCP" 
+                                className="w-8 h-auto object-contain"
+                              />
+                            </div>
+                          ) : bank.code === 'interbank' ? (
+                            <div className="w-10 h-10 rounded-lg flex items-center justify-center mr-3 bg-white">
+                              <img 
+                                src={interbankLogo} 
+                                alt="Interbank" 
                                 className="w-8 h-auto object-contain"
                               />
                             </div>
