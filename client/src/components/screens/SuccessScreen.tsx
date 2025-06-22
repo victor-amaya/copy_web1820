@@ -56,20 +56,6 @@ export default function SuccessScreen({
               </div>
             </div>
 
-            <div className="bg-primary/5 border border-primary/20 rounded-xl p-6 mb-8">
-              <p className="text-gray-700">
-                ¿Tiene consultas adicionales?<br />
-                Conoce todos nuestros servicios{' '}
-                <button
-                  onClick={onViewServices}
-                  className="text-primary font-semibold hover:underline"
-                >
-                  aquí
-                </button>
-                .
-              </p>
-            </div>
-
             <div className="bg-gray-50 rounded-xl p-6 mb-8">
               <h3 className="text-lg font-semibold text-gray-900 mb-3">Crea una cuenta para conocer más de tu registro</h3>
               <p className="text-gray-600 mb-4">
@@ -88,6 +74,20 @@ export default function SuccessScreen({
                 <UserPlus className="w-5 h-5 mr-2" />
                 Crea una cuenta
               </Button>
+            </div>
+
+            <div className="bg-primary/5 border border-primary/20 rounded-xl p-6 mb-8">
+              <p className="text-gray-700">
+                ¿Tiene consultas adicionales?<br />
+                Conoce todos nuestros servicios{' '}
+                <button
+                  onClick={onViewServices}
+                  className="text-primary font-semibold hover:underline"
+                >
+                  aquí
+                </button>
+                .
+              </p>
             </div>
           </CardContent>
         </Card>
