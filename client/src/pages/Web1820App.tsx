@@ -68,7 +68,7 @@ export default function Web1820App() {
             selectedProducts={selectedProducts}
             onCreateAccount={() => goToScreen(6)}
             onViewServices={() => goToScreen(8)}
-            onBack={goBack}
+            onBackToSelection={() => goToScreen(2)}
           />
         );
       case 6:

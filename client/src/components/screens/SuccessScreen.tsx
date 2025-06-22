@@ -7,14 +7,14 @@ interface SuccessScreenProps {
   selectedProducts: SelectedProduct[];
   onCreateAccount: () => void;
   onViewServices: () => void;
-  onBack: () => void;
+  onBackToSelection: () => void;
 }
 
 export default function SuccessScreen({
   selectedProducts,
   onCreateAccount,
   onViewServices,
-  onBack
+  onBackToSelection
 }: SuccessScreenProps) {
   const groupedProducts = selectedProducts.reduce((acc, product) => {
     if (!acc[product.bank]) {
@@ -95,7 +95,7 @@ export default function SuccessScreen({
 
             <div className="flex justify-between items-center">
               <Button
-                onClick={onBack}
+                onClick={onBackToSelection}
                 size="lg"
                 variant="outline"
                 className="font-semibold px-8 py-3"
