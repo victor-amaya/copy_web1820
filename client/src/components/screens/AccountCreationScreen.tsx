@@ -35,6 +35,12 @@ export default function AccountCreationScreen({
       case 'fechaNacimiento':
         if (!value) {
           error = 'Este campo es obligatorio';
+        } else if (typeof value === 'string') {
+          const today = new Date();
+          const selectedDate = new Date(value);
+          if (selectedDate > today) {
+            error = 'No puedes seleccionar una fecha futura';
+          }
         }
         break;
       case 'password':
@@ -159,6 +165,7 @@ export default function AccountCreationScreen({
                 <Input
                   id="fechaNacimiento"
                   type="date"
+                  max={new Date().toISOString().split('T')[0]}
                   value={formData.fechaNacimiento}
                   onChange={(e) => handleInputChange('fechaNacimiento', e.target.value)}
                   className={`mt-1 ${errors.fechaNacimiento ? 'border-red-500' : formData.fechaNacimiento ? 'border-green-500' : ''}`}
