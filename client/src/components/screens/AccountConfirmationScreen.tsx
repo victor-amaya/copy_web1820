@@ -12,7 +12,7 @@ export default function AccountConfirmationScreen({
   onViewServices
 }: AccountConfirmationScreenProps) {
   return (
-    <div className="min-h-screen flex items-center justify-center px-4">
+    <div className="min-h-screen flex items-center justify-center px-4" style={{ fontFamily: 'Barlow, sans-serif' }}>
       <div className="max-w-2xl w-full">
         <Card className="shadow-xl">
           <CardContent className="p-12 text-center">
@@ -20,7 +20,7 @@ export default function AccountConfirmationScreen({
               <CheckCircle className="w-12 h-12 text-green-600" />
             </div>
 
-            <h2 className="text-3xl font-bold text-gray-900 mb-6">
+            <h2 className="text-3xl font-bold text-gray-900 mb-6" style={{ fontFamily: 'Barlow, sans-serif' }}>
               Creación de cuenta exitosa
             </h2>
 

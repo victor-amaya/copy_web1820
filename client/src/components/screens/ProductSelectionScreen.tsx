@@ -68,7 +68,7 @@ export default function ProductSelectionScreen({
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-4 py-8">
+    <div className="min-h-screen flex items-center justify-center px-4 py-8" style={{ fontFamily: 'Barlow, sans-serif' }}>
       <div className="max-w-5xl w-full">
         <Card className="shadow-xl">
           <CardContent className="p-8">
@@ -76,10 +76,10 @@ export default function ProductSelectionScreen({
               <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Building2 className="w-8 h-8 text-primary" />
               </div>
-              <h2 className="text-3xl font-bold text-gray-900 mb-4">
+              <h2 className="text-3xl font-bold text-gray-900 mb-4" style={{ fontFamily: 'Barlow, sans-serif' }}>
                 Selecciona las entidades financieras y productos que deseas bloquear
               </h2>
-              <p className="text-gray-600">Marca todas las opciones que correspondan a tus productos bancarios</p>
+              <p className="text-gray-600" style={{ fontFamily: 'Barlow, sans-serif' }}>Marca todas las opciones que correspondan a tus productos bancarios</p>
             </div>
 
             <div className="overflow-x-auto">
@@ -128,7 +128,13 @@ export default function ProductSelectionScreen({
               <Button
                 onClick={handleNext}
                 size="lg"
-                className="bg-primary hover:bg-primary/90 text-white font-semibold px-8 py-3"
+                className="font-semibold px-8 py-3"
+                style={{ 
+                  backgroundColor: '#4b289e', 
+                  color: '#fbd72c', 
+                  fontFamily: 'Barlow, sans-serif',
+                  border: 'none'
+                }}
               >
                 <ArrowRight className="w-5 h-5 mr-2" />
                 Siguiente

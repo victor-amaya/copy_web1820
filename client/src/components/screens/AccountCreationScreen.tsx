@@ -87,7 +87,7 @@ export default function AccountCreationScreen({
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-4 py-8">
+    <div className="min-h-screen flex items-center justify-center px-4 py-8" style={{ fontFamily: 'Barlow, sans-serif' }}>
       <div className="max-w-2xl w-full">
         <Card className="shadow-xl">
           <CardContent className="p-8">
@@ -95,8 +95,8 @@ export default function AccountCreationScreen({
               <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
                 <UserPlus className="w-8 h-8 text-primary" />
               </div>
-              <h2 className="text-3xl font-bold text-gray-900 mb-2">Creación de cuenta</h2>
-              <p className="text-gray-600">Completa los datos adicionales para crear tu cuenta</p>
+              <h2 className="text-3xl font-bold text-gray-900 mb-2" style={{ fontFamily: 'Barlow, sans-serif' }}>Creación de cuenta</h2>
+              <p className="text-gray-600" style={{ fontFamily: 'Barlow, sans-serif' }}>Completa los datos adicionales para crear tu cuenta</p>
             </div>
 
             <div className="space-y-6">
@@ -235,10 +235,14 @@ export default function AccountCreationScreen({
                 disabled={!isValid}
                 size="lg"
                 className={`px-8 py-3 font-semibold transition-all duration-200 ${
-                  isValid
-                    ? 'bg-primary hover:bg-primary/90 text-white'
-                    : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                  !isValid ? 'bg-gray-300 text-gray-500 cursor-not-allowed' : ''
                 }`}
+                style={isValid ? { 
+                  backgroundColor: '#4b289e', 
+                  color: '#fbd72c', 
+                  fontFamily: 'Barlow, sans-serif',
+                  border: 'none'
+                } : { fontFamily: 'Barlow, sans-serif' }}
               >
                 <UserPlus className="w-5 h-5 mr-2" />
                 Crear cuenta

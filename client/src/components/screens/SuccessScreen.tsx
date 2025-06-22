@@ -23,7 +23,7 @@ export default function SuccessScreen({
   }, {} as Record<string, string[]>);
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-4 py-8">
+    <div className="min-h-screen flex items-center justify-center px-4 py-8" style={{ fontFamily: 'Barlow, sans-serif' }}>
       <div className="max-w-3xl w-full">
         <Card className="shadow-xl">
           <CardContent className="p-8">
@@ -31,8 +31,8 @@ export default function SuccessScreen({
               <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
                 <CheckCircle className="w-12 h-12 text-green-600" />
               </div>
-              <h2 className="text-3xl font-bold text-gray-900 mb-4">Bloqueo exitoso</h2>
-              <p className="text-xl text-gray-600 mb-2">Gracias por usar el servicio de Web 1820.</p>
+              <h2 className="text-3xl font-bold text-gray-900 mb-4" style={{ fontFamily: 'Barlow, sans-serif' }}>Bloqueo exitoso</h2>
+              <p className="text-xl text-gray-600 mb-2" style={{ fontFamily: 'Barlow, sans-serif' }}>Gracias por usar el servicio de Web 1820.</p>
             </div>
 
             <div className="bg-gray-50 rounded-xl p-6 mb-8">
@@ -79,7 +79,13 @@ export default function SuccessScreen({
               </p>
               <Button
                 onClick={onCreateAccount}
-                className="bg-primary hover:bg-primary/90 text-white font-semibold px-6 py-3"
+                className="font-semibold px-6 py-3"
+                style={{ 
+                  backgroundColor: '#4b289e', 
+                  color: '#fbd72c', 
+                  fontFamily: 'Barlow, sans-serif',
+                  border: 'none'
+                }}
               >
                 <UserPlus className="w-5 h-5 mr-2" />
                 Crea una cuenta

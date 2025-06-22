@@ -57,7 +57,7 @@ export default function ProcessingScreen({ onComplete }: ProcessingScreenProps) 
   }, [onComplete]);
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-4">
+    <div className="min-h-screen flex items-center justify-center px-4" style={{ fontFamily: 'Barlow, sans-serif' }}>
       <div className="max-w-2xl w-full text-center">
         <Card className="shadow-xl">
           <CardContent className="p-12">
@@ -70,8 +70,8 @@ export default function ProcessingScreen({ onComplete }: ProcessingScreenProps) 
                   <div></div>
                 </div>
               </div>
-              <h2 className="text-3xl font-bold text-gray-900 mb-4">Solicitud recibida</h2>
-              <p className="text-xl text-gray-600 mb-8">Estamos procediendo a realizar el bloqueo solicitado.</p>
+              <h2 className="text-3xl font-bold text-gray-900 mb-4" style={{ fontFamily: 'Barlow, sans-serif' }}>Solicitud recibida</h2>
+              <p className="text-xl text-gray-600 mb-8" style={{ fontFamily: 'Barlow, sans-serif' }}>Estamos procediendo a realizar el bloqueo solicitado.</p>
             </div>
 
             <div className="bg-gray-50 rounded-xl p-6 mb-8">
