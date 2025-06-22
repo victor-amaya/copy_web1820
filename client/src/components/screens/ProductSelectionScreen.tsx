@@ -4,7 +4,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Card, CardContent } from "@/components/ui/card";
 import { Building2, ArrowRight } from "lucide-react";
 import { SelectedProduct, Bank } from "@/lib/types";
-import bbvaLogo from "@assets/BBVA_1750611748261.png";
+import bbvaLogo from "@assets/BBVA_1750612279628.png";
 import bcpLogo from "@assets/BCP_1750612075168.png";
 import interbankLogo from "@assets/Interbank_1750612206510.png";
 
