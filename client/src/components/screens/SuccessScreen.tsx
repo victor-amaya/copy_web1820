@@ -71,9 +71,7 @@ export default function SuccessScreen({
             </div>
 
             <div className="bg-gray-50 rounded-xl p-6 mb-8">
-              <h3 className="text-lg font-semibold text-gray-900 mb-3">
-                Mientras esperas, crea una cuenta para conocer más de tu registro
-              </h3>
+              <h3 className="text-lg font-semibold text-gray-900 mb-3">Crea una cuenta para conocer más de tu registro</h3>
               <p className="text-gray-600 mb-4">
                 Si aún no creaste una cuenta, puedes hacerlo ahora y tener acceso detallado de tus solicitudes cuando lo necesites.
               </p>
