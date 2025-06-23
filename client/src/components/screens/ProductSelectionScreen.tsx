@@ -8,6 +8,7 @@ import bbvaLogo from "@assets/BBVA_1750612279628.png";
 import bcpLogo from "@assets/BCP_1750612075168.png";
 import interbankLogo from "@assets/Interbank_1750612206510.png";
 import scotiabankLogo from "@assets/Scotiabank_1750612351732.png";
+import { CreditCard, Smartphone, Wallet } from "lucide-react";
 
 interface ProductSelectionScreenProps {
   selectedProducts: SelectedProduct[];
@@ -17,186 +18,243 @@ interface ProductSelectionScreenProps {
 }
 
 const banks: Bank[] = [
-  { code: 'bcp', name: 'Banco de Crédito', color: 'bg-blue-600', shortName: 'BCP' },
-  { code: 'bbva', name: 'BBVA', color: 'bg-blue-700', shortName: 'BBVA' },
-  { code: 'interbank', name: 'Interbank', color: 'bg-teal-600', shortName: 'IB' },
-  { code: 'scotiabank', name: 'Scotiabank', color: 'bg-red-600', shortName: 'SB' }
+  {
+    code: "bcp",
+    name: "Banco de Crédito",
+    color: "bg-blue-600",
+    shortName: "BCP",
+    logo: bcpLogo,
+  },
+  {
+    code: "bbva",
+    name: "BBVA",
+    color: "bg-blue-700",
+    shortName: "BBVA",
+    logo: bbvaLogo,
+  },
+  {
+    code: "interbank",
+    name: "Interbank",
+    color: "bg-teal-600",
+    shortName: "IB",
+    logo: interbankLogo,
+  },
+  {
+    code: "scotiabank",
+    name: "Scotiabank",
+    color: "bg-red-600",
+    shortName: "SB",
+    logo: scotiabankLogo,
+  },
 ];
 
 const productTypes = [
-  { key: 'credit' as const, label: 'Todas mis Tarjetas de crédito' },
-  { key: 'debit' as const, label: 'Todas mis Tarjetas de Débito' },
-  { key: 'apps' as const, label: 'Todos mis aplicativos' },
-  { key: 'wallet' as const, label: 'Todas mis billeteras digitales' }
+  {
+    key: "credit" as const,
+    label: "Todas mis Tarjetas de crédito",
+    icon: <CreditCard className="w-5 h-5 text-blue-600" />,
+    color: "bg-blue-50 hover:bg-blue-100",
+  },
+  {
+    key: "debit" as const,
+    label: "Todas mis Tarjetas de Débito",
+    icon: <CreditCard className="w-5 h-5 text-green-600" />,
+    color: "bg-green-50 hover:bg-green-100",
+  },
+  {
+    key: "apps" as const,
+    label: "Todos mis aplicativos",
+    icon: <Smartphone className="w-5 h-5 text-purple-600" />,
+    color: "bg-purple-50 hover:bg-purple-100",
+  },
+  {
+    key: "wallet" as const,
+    label: "Todas mis billeteras digitales",
+    icon: <Wallet className="w-5 h-5 text-orange-600" />,
+    color: "bg-orange-50 hover:bg-orange-100",
+  },
 ];
 
 export default function ProductSelectionScreen({
   selectedProducts,
   onProductsChange,
   onNext,
-  onBack
+  onBack,
 }: ProductSelectionScreenProps) {
-  const [localProducts, setLocalProducts] = useState<SelectedProduct[]>(selectedProducts);
+  const [localProducts, setLocalProducts] =
+    useState<SelectedProduct[]>(selectedProducts);
 
   useEffect(() => {
     onProductsChange(localProducts);
   }, [localProducts, onProductsChange]);
 
   const isProductSelected = (bankCode: string, productType: string) => {
-    return localProducts.some(p => p.bankCode === bankCode && p.productType === productType);
+    return localProducts.some(
+      (p) => p.bankCode === bankCode && p.productType === productType,
+    );
   };
 
-  const toggleProduct = (bank: Bank, productType: typeof productTypes[0]) => {
+  const toggleProduct = (bank: Bank, productType: (typeof productTypes)[0]) => {
     const productKey = `${bank.code}-${productType.key}`;
     const isSelected = isProductSelected(bank.code, productType.key);
 
     if (isSelected) {
-      setLocalProducts(prev => 
-        prev.filter(p => !(p.bankCode === bank.code && p.productType === productType.key))
+      setLocalProducts((prev) =>
+        prev.filter(
+          (p) =>
+            !(p.bankCode === bank.code && p.productType === productType.key),
+        ),
       );
     } else {
       const newProduct: SelectedProduct = {
         bank: bank.name,
         bankCode: bank.code,
         product: productType.label,
-        productType: productType.key
+        productType: productType.key,
       };
-      setLocalProducts(prev => [...prev, newProduct]);
+      setLocalProducts((prev) => [...prev, newProduct]);
     }
   };
 
   const handleNext = () => {
     if (localProducts.length === 0) {
-      alert('Por favor selecciona al menos un producto para bloquear');
+      alert("Por favor selecciona al menos un producto para bloquear");
       return;
     }
     onNext();
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-4 py-8" style={{ fontFamily: 'Barlow, sans-serif' }}>
-      <div className="max-w-5xl w-full">
-        <Card className="shadow-xl">
-          <CardContent className="p-8">
-            <div className="text-center mb-8">
-              <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Building2 className="w-8 h-8 text-primary" />
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-white px-4 sm:px-8 py-8 sm:py-16">
+      <div className="max-w-6xl mx-auto">
+        <div className="text-center mb-8 sm:mb-12">
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4 sm:mb-6 leading-tight">
+            Selecciona las entidades financieras y productos que deseas bloquear
+          </h1>
+          <p className="text-lg sm:text-xl text-gray-600 mb-2">
+            Marca todas las opciones que correspondan a tus productos bancarios
+          </p>
+          <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto rounded-full"></div>
+        </div>
+
+        {/* Desktop/Tablet Table View */}
+        <div className="hidden md:block bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100">
+          <div className="bg-gradient-to-r from-gray-50 to-gray-100 p-6">
+            <div className="grid grid-cols-5 gap-4">
+              <div className="font-semibold text-gray-700 text-lg">
+                Entidad Financiera
               </div>
-              <h2 className="text-3xl font-bold text-gray-900 mb-4" style={{ fontFamily: 'Barlow, sans-serif' }}>
-                Selecciona las entidades financieras y productos que deseas bloquear
-              </h2>
-              <p className="text-gray-600" style={{ fontFamily: 'Barlow, sans-serif' }}>Marca todas las opciones que correspondan a tus productos bancarios</p>
+              {productTypes.map((product) => (
+                <div key={product.key} className="text-center">
+                  <div className="flex flex-col items-center space-y-2">
+                    {product.icon}
+                    <span className="font-medium text-gray-700 text-sm leading-tight">
+                      {product.label}
+                    </span>
+                  </div>
+                </div>
+              ))}
             </div>
+          </div>
 
-            <div className="overflow-x-auto">
-              <table className="w-full border-collapse">
-                <thead>
-                  <tr className="bg-gray-50">
-                    <th className="text-left py-4 px-6 font-semibold text-gray-900 border-b">
-                      Entidad Financiera
-                    </th>
-                    {productTypes.map(product => (
-                      <th key={product.key} className="text-center py-4 px-4 font-semibold text-gray-900 border-b min-w-[140px]">
-                        {product.label}
-                      </th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody>
-                  {banks.map((bank, index) => (
-                    <tr key={bank.code} className="hover:bg-gray-50 transition-colors">
-                      <td className={`py-4 px-6 ${index < banks.length - 1 ? 'border-b' : ''}`}>
-                        <div className="flex items-center">
-                          {bank.code === 'bbva' ? (
-                            <div className="w-10 h-10 rounded-lg flex items-center justify-center mr-3 bg-white">
-                              <img 
-                                src={bbvaLogo} 
-                                alt="BBVA" 
-                                className="w-8 h-auto object-contain"
-                              />
-                            </div>
-                          ) : bank.code === 'bcp' ? (
-                            <div className="w-10 h-10 rounded-lg flex items-center justify-center mr-3 bg-white">
-                              <img 
-                                src={bcpLogo} 
-                                alt="BCP" 
-                                className="w-8 h-auto object-contain"
-                              />
-                            </div>
-                          ) : bank.code === 'interbank' ? (
-                            <div className="w-10 h-10 rounded-lg flex items-center justify-center mr-3 bg-white">
-                              <img 
-                                src={interbankLogo} 
-                                alt="Interbank" 
-                                className="w-8 h-auto object-contain"
-                              />
-                            </div>
-                          ) : bank.code === 'scotiabank' ? (
-                            <div className="w-10 h-10 rounded-lg flex items-center justify-center mr-3 bg-white">
-                              <img 
-                                src={scotiabankLogo} 
-                                alt="Scotiabank" 
-                                className="w-8 h-auto object-contain"
-                              />
-                            </div>
-                          ) : (
-                            <div className={`w-10 h-10 ${bank.color} rounded-lg flex items-center justify-center mr-3`}>
-                              <span className="text-white font-bold text-sm">{bank.shortName}</span>
-                            </div>
-                          )}
-                          <span className="font-medium">{bank.name}</span>
-                        </div>
-                      </td>
-                      {productTypes.map(product => (
-                        <td key={`${bank.code}-${product.key}`} className={`text-center py-4 px-4 ${index < banks.length - 1 ? 'border-b' : ''}`}>
-                          <div className="flex justify-center">
-                            <Checkbox
-                              checked={isProductSelected(bank.code, product.key)}
-                              onCheckedChange={() => toggleProduct(bank, product)}
-                              className="w-5 h-5"
-                            />
-                          </div>
-                        </td>
-                      ))}
-                    </tr>
+          <div className="divide-y divide-gray-100">
+            {banks.map((entity, index) => (
+              <div
+                key={entity.name}
+                className={`p-6 hover:bg-gray-50 transition-colors ${index % 2 === 0 ? "bg-white" : "bg-gray-25"}`}
+              >
+                <div className="grid grid-cols-5 gap-4 items-center">
+                  <div className="flex items-center space-x-3">
+                    <img src={entity.logo} alt={entity.name} className="w-10 h-10" />
+                    <span className="font-semibold text-gray-800 text-lg">
+                      {entity.name}
+                    </span>
+                  </div>
+
+                  {productTypes.map((product) => (
+                    <div key={product.key} className="flex justify-center">
+                      <div
+                        className={`p-3 rounded-lg ${product.color} transition-colors`}
+                      >
+                        <Checkbox
+                          checked={isProductSelected(entity.code, product.key)}
+                          onCheckedChange={() => toggleProduct(entity, product)}
+                          className="w-5 h-5 data-[state=checked]:bg-blue-600 data-[state=checked]:border-blue-600"
+                        />
+                      </div>
+                    </div>
                   ))}
-                </tbody>
-              </table>
-            </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
 
-            <div className="flex justify-between mt-8">
-              <Button
-                onClick={onBack}
-                size="lg"
-                variant="outline"
-                className="font-semibold px-8 py-3"
-                style={{ 
-                  fontFamily: 'Barlow, sans-serif',
-                  borderColor: '#4b289e',
-                  color: '#4b289e'
-                }}
-              >
-                <ArrowLeft className="w-5 h-5 mr-2" />
-                Regresar
-              </Button>
-              
-              <Button
-                onClick={handleNext}
-                size="lg"
-                className="font-semibold px-8 py-3"
-                style={{ 
-                  backgroundColor: '#4b289e', 
-                  color: '#fbd72c', 
-                  fontFamily: 'Barlow, sans-serif',
-                  border: 'none'
-                }}
-              >
-                <ArrowRight className="w-5 h-5 mr-2" />
-                Siguiente
-              </Button>
+        {/* Mobile Card View */}
+        <div className="md:hidden space-y-4">
+          {banks.map((entity) => (
+            <div key={entity.name} className="bg-white rounded-xl shadow-lg border border-gray-100 p-4">
+              <div className="flex items-center space-x-3 mb-4 pb-4 border-b border-gray-100">
+                <img src={entity.logo} alt={entity.name} className="w-10 h-10" />
+                <span className="font-semibold text-gray-800 text-lg">
+                  {entity.name}
+                </span>
+              </div>
+
+              <div className="grid grid-cols-2 gap-3">
+                {productTypes.map((product) => (
+                  <div key={product.key} className={`p-3 rounded-lg ${product.color} transition-colors`}>
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center space-x-2">
+                        {product.icon}
+                        <span className="font-medium text-gray-700 text-sm">
+                          {product.label}
+                        </span>
+                      </div>
+                      <Checkbox
+                        checked={isProductSelected(entity.code, product.key)}
+                        onCheckedChange={() => toggleProduct(entity, product)}
+                        className="w-5 h-5 data-[state=checked]:bg-blue-600 data-[state=checked]:border-blue-600"
+                      />
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
-          </CardContent>
-        </Card>
+          ))}
+        </div>
+
+        <div className="flex justify-between mt-8">
+          <Button
+            onClick={onBack}
+            size="lg"
+            variant="outline"
+            className="font-semibold px-8 py-3"
+            style={{
+              fontFamily: "Barlow, sans-serif",
+              borderColor: "#4b289e",
+              color: "#4b289e",
+            }}
+          >
+            <ArrowLeft className="w-5 h-5 mr-2" />
+            Regresar
+          </Button>
+
+          <Button
+            onClick={handleNext}
+            size="lg"
+            className="font-semibold px-8 py-3"
+            style={{
+              backgroundColor: "#4b289e",
+              color: "#fbd72c",
+              fontFamily: "Barlow, sans-serif",
+              border: "none",
+            }}
+          >
+            <ArrowRight className="w-5 h-5 mr-2" />
+            Siguiente
+          </Button>
+        </div>
       </div>
     </div>
   );

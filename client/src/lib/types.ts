@@ -12,7 +12,7 @@ export interface SelectedProduct {
   bank: string;
   bankCode: string;
   product: string;
-  productType: 'credit' | 'debit' | 'apps' | 'wallet';
+  productType: "credit" | "debit" | "apps" | "wallet";
 }
 
 export interface Bank {
@@ -20,6 +20,7 @@ export interface Bank {
   name: string;
   color: string;
   shortName: string;
+  logo: string;
 }
 
 export type Screen = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
