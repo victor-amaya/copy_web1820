@@ -45,7 +45,7 @@ const transformEntidadToBank = (entidad: EntidadFinanciera): Bank => ({
   name: entidad.nombre,
   color: colorMapping[entidad.codigo] || "bg-gray-600",
   shortName: shortNameMapping[entidad.codigo] || entidad.codigo.toUpperCase(),
-  logo: logoMapping[entidad.codigo] || entidad.logoUrl || "",
+  logo: entidad.logoUrl || logoMapping[entidad.codigo] || "",
 });
 
 export const useEntidadesFinancieras = () => {

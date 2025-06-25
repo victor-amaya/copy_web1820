@@ -157,7 +157,15 @@ export default function ProductSelectionScreen({
               >
                 <div className="grid grid-cols-5 gap-4 items-center">
                   <div className="flex items-center space-x-3">
-                    <img src={entity.logo} alt={entity.name} className="w-10 h-10" />
+                    <img 
+                      src={entity.logo} 
+                      alt={entity.name} 
+                      className="w-12 h-12 object-contain rounded-lg"
+                      onError={(e) => {
+                        console.error(`Failed to load logo for ${entity.name}:`, entity.logo);
+                        e.currentTarget.style.display = 'none';
+                      }}
+                    />
                     <span className="font-semibold text-gray-800 text-lg">
                       {entity.name}
                     </span>
@@ -187,7 +195,15 @@ export default function ProductSelectionScreen({
           {banks.map((entity) => (
             <div key={entity.name} className="bg-white rounded-xl shadow-lg border border-gray-100 p-4">
               <div className="flex items-center space-x-3 mb-4 pb-4 border-b border-gray-100">
-                <img src={entity.logo} alt={entity.name} className="w-10 h-10" />
+                <img 
+                  src={entity.logo} 
+                  alt={entity.name} 
+                  className="w-10 h-10 object-contain rounded-lg"
+                  onError={(e) => {
+                    console.error(`Failed to load logo for ${entity.name}:`, entity.logo);
+                    e.currentTarget.style.display = 'none';
+                  }}
+                />
                 <span className="font-semibold text-gray-800 text-lg">
                   {entity.name}
                 </span>
