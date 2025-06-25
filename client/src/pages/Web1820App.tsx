@@ -39,7 +39,12 @@ export default function Web1820App() {
   };
 
   const updateUserData = (data: Partial<UserData>) => {
-    setUserData(prev => ({ ...prev, ...data }));
+    console.log("Updating user data with:", data);
+    setUserData(prev => {
+      const updated = { ...prev, ...data };
+      console.log("User data after update:", updated);
+      return updated;
+    });
   };
 
   const updateSelectedProducts = (products: SelectedProduct[]) => {
@@ -48,14 +53,31 @@ export default function Web1820App() {
 
   const handleCreateAccount = async () => {
     try {
-      if (!userData.password) {
+      // Validar campos requeridos
+      if (!userData.nombres || !userData.apellidos || !userData.dni || !userData.celular || !userData.email || !userData.password) {
+        const missingFields = [];
+        if (!userData.nombres) missingFields.push("nombres");
+        if (!userData.apellidos) missingFields.push("apellidos"); 
+        if (!userData.dni) missingFields.push("DNI");
+        if (!userData.celular) missingFields.push("celular");
+        if (!userData.email) missingFields.push("email");
+        if (!userData.password) missingFields.push("contraseña");
+        
         toast({
-          title: "Error",
-          description: "La contraseña es requerida",
+          title: "Campos faltantes",
+          description: `Por favor completa: ${missingFields.join(", ")}`,
           variant: "destructive",
         });
         return;
       }
+
+      console.log("Current userData state:", userData);
+      console.log("Creating user with data:", {
+        ...userData,
+        password: userData.password ? "***hidden***" : "NO PASSWORD SET",
+        aceptaDatos,
+        aceptaAnuncios
+      });
 
       // Crear usuario
       await createUser.mutateAsync({
@@ -130,9 +152,11 @@ export default function Web1820App() {
           <AccountCreationScreen
             userData={userData}
             onUserDataChange={(data) => {
+              console.log("Account creation screen data received:", data);
               updateUserData(data);
               // Capturar datos de aceptación de la pantalla
               if (data.fechaNacimiento && data.password) {
+                console.log("Setting aceptaDatos to true");
                 setAceptaDatos(true); // Por defecto true cuando completa la pantalla
               }
             }}

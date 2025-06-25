@@ -87,10 +87,15 @@ export default function AccountCreationScreen({
   }, [formData, errors]);
 
   const handleNext = () => {
-    onUserDataChange({
+    // Asegurar que los datos se pasen correctamente antes de continuar
+    const updatedData = {
       fechaNacimiento: formData.fechaNacimiento,
       password: formData.password
-    });
+    };
+    
+    console.log("Account creation data:", updatedData);
+    
+    onUserDataChange(updatedData);
     onNext();
   };
 
