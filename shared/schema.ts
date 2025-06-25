@@ -29,8 +29,13 @@ export const blockRequests = pgTable("block_requests", {
   id: serial("id").primaryKey(),
   userId: text("user_dni").notNull(),
   selectedProducts: text("selected_products").notNull(), // JSON string
-  status: text("status").notNull().default("completed"),
+  status: text("status").notNull().default("pending"), // pending, processing, completed, failed
+  requestType: text("request_type").notNull().default("block"), // block, unblock
+  priority: text("priority").notNull().default("normal"), // low, normal, high, urgent
+  reason: text("reason"), // optional reason for the request
+  processedAt: timestamp("processed_at"),
   createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
 });
 
 export const insertUserSchema = createInsertSchema(users).omit({

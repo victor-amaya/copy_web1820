@@ -83,7 +83,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Block Requests API
   app.post("/api/block-requests", async (req, res) => {
     try {
-      const { userDni, selectedProducts } = req.body;
+      const { userDni, selectedProducts, priority = "normal", reason } = req.body;
       
       if (!userDni || !selectedProducts) {
         return res.status(400).json({ error: "Faltan datos obligatorios" });
@@ -92,12 +92,57 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const blockRequest = await storage.createBlockRequest({
         userId: userDni,
         selectedProducts: JSON.stringify(selectedProducts),
-        status: "completed"
+        status: "pending",
+        requestType: "block",
+        priority,
+        reason
       });
 
       res.status(201).json(blockRequest);
     } catch (error) {
       console.error("Error creating block request:", error);
+      res.status(500).json({ error: "Error interno del servidor" });
+    }
+  });
+
+  app.get("/api/block-requests", async (req, res) => {
+    try {
+      const blockRequests = await storage.getBlockRequests();
+      res.json(blockRequests);
+    } catch (error) {
+      console.error("Error getting block requests:", error);
+      res.status(500).json({ error: "Error interno del servidor" });
+    }
+  });
+
+  app.get("/api/block-requests/user/:dni", async (req, res) => {
+    try {
+      const dni = req.params.dni;
+      const blockRequests = await storage.getBlockRequestsByUser(dni);
+      res.json(blockRequests);
+    } catch (error) {
+      console.error("Error getting user block requests:", error);
+      res.status(500).json({ error: "Error interno del servidor" });
+    }
+  });
+
+  app.patch("/api/block-requests/:id/status", async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      const { status } = req.body;
+      
+      if (!status) {
+        return res.status(400).json({ error: "Estado es requerido" });
+      }
+
+      const updatedRequest = await storage.updateBlockRequestStatus(id, status);
+      if (!updatedRequest) {
+        return res.status(404).json({ error: "Solicitud no encontrada" });
+      }
+
+      res.json(updatedRequest);
+    } catch (error) {
+      console.error("Error updating block request status:", error);
       res.status(500).json({ error: "Error interno del servidor" });
     }
   });

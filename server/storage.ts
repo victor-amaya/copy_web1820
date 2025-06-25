@@ -13,6 +13,9 @@ export interface IStorage {
   getEntidadFinanciera(id: number): Promise<EntidadFinanciera | undefined>;
   createEntidadFinanciera(entidad: InsertEntidadFinanciera): Promise<EntidadFinanciera>;
   createBlockRequest(blockRequest: InsertBlockRequest): Promise<BlockRequest>;
+  getBlockRequests(): Promise<BlockRequest[]>;
+  getBlockRequestsByUser(userDni: string): Promise<BlockRequest[]>;
+  updateBlockRequestStatus(id: number, status: string, processedAt?: Date): Promise<BlockRequest | undefined>;
 }
 
 export class MemStorage implements IStorage {
@@ -105,6 +108,27 @@ export class DbStorage implements IStorage {
 
   async createBlockRequest(insertBlockRequest: InsertBlockRequest): Promise<BlockRequest> {
     const result = await db.insert(blockRequests).values(insertBlockRequest).returning();
+    return result[0];
+  }
+
+  async getBlockRequests(): Promise<BlockRequest[]> {
+    return await db.select().from(blockRequests).orderBy(blockRequests.createdAt);
+  }
+
+  async getBlockRequestsByUser(userDni: string): Promise<BlockRequest[]> {
+    return await db.select().from(blockRequests).where(eq(blockRequests.userId, userDni)).orderBy(blockRequests.createdAt);
+  }
+
+  async updateBlockRequestStatus(id: number, status: string, processedAt?: Date): Promise<BlockRequest | undefined> {
+    const result = await db
+      .update(blockRequests)
+      .set({ 
+        status, 
+        processedAt: processedAt || new Date(),
+        updatedAt: new Date() 
+      })
+      .where(eq(blockRequests.id, id))
+      .returning();
     return result[0];
   }
 }

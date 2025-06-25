@@ -43,7 +43,13 @@ Web 1820 is a banking security platform that allows users to instantly block the
 
 ### Data Models
 - **Users Table**: Stores user account information including personal data and preferences
-- **Block Requests Table**: Tracks blocking requests with selected products and status
+- **Entidades Financieras Table**: Contains banking institutions with logos and status
+- **Block Requests Table**: Comprehensive tracking of blocking requests with:
+  - Selected products (JSON format)
+  - Status workflow (pending → processing → completed/failed)
+  - Priority levels (low, normal, high, urgent)
+  - Request type (block/unblock)
+  - Timestamps for creation, processing, and updates
 - **Type Safety**: Drizzle Zod schemas ensure runtime validation
 
 ### UI Components
@@ -98,6 +104,8 @@ Web 1820 is a banking security platform that allows users to instantly block the
 - **June 25, 2025**: Updated ProductSelectionScreen to use dynamic data from database
 - **June 25, 2025**: Created complete users table with API endpoints for user registration and block requests
 - **June 25, 2025**: Integrated user data storage with PersonalDataScreen and AccountCreationScreen flows
+- **June 25, 2025**: Enhanced block requests table with comprehensive tracking fields (status, priority, reason, timestamps)
+- **June 25, 2025**: Added complete CRUD API for block requests management with status updates
 
 ## User Preferences
 
