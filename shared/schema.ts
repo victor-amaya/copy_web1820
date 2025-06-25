@@ -28,7 +28,6 @@ export const entidadFinanciera = pgTable("entidad_financiera", {
 export const blockRequests = pgTable("block_requests", {
   id: serial("id").primaryKey(),
   userId: text("user_dni").notNull(),
-  entidadFinancieraId: serial("entidad_financiera_id").references(() => entidadFinanciera.id),
   selectedProducts: text("selected_products").notNull(), // JSON string
   status: text("status").notNull().default("completed"),
   createdAt: timestamp("created_at").defaultNow(),

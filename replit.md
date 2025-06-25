@@ -96,6 +96,8 @@ Web 1820 is a banking security platform that allows users to instantly block the
 - **June 25, 2025**: Migration completed - Added PostgreSQL database integration
 - **June 25, 2025**: Created Entidad Financiera table with API endpoints
 - **June 25, 2025**: Updated ProductSelectionScreen to use dynamic data from database
+- **June 25, 2025**: Created complete users table with API endpoints for user registration and block requests
+- **June 25, 2025**: Integrated user data storage with PersonalDataScreen and AccountCreationScreen flows
 
 ## User Preferences
 

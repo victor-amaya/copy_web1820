@@ -1,4 +1,4 @@
-import { users, entidadFinanciera, type User, type InsertUser, type EntidadFinanciera, type InsertEntidadFinanciera } from "@shared/schema";
+import { users, entidadFinanciera, blockRequests, type User, type InsertUser, type EntidadFinanciera, type InsertEntidadFinanciera, type BlockRequest, type InsertBlockRequest } from "@shared/schema";
 import { db } from "./db";
 import { eq } from "drizzle-orm";
 
@@ -12,6 +12,7 @@ export interface IStorage {
   getEntidadesFinancieras(): Promise<EntidadFinanciera[]>;
   getEntidadFinanciera(id: number): Promise<EntidadFinanciera | undefined>;
   createEntidadFinanciera(entidad: InsertEntidadFinanciera): Promise<EntidadFinanciera>;
+  createBlockRequest(blockRequest: InsertBlockRequest): Promise<BlockRequest>;
 }
 
 export class MemStorage implements IStorage {
@@ -99,6 +100,11 @@ export class DbStorage implements IStorage {
 
   async createEntidadFinanciera(insertEntidad: InsertEntidadFinanciera): Promise<EntidadFinanciera> {
     const result = await db.insert(entidadFinanciera).values(insertEntidad).returning();
+    return result[0];
+  }
+
+  async createBlockRequest(insertBlockRequest: InsertBlockRequest): Promise<BlockRequest> {
+    const result = await db.insert(blockRequests).values(insertBlockRequest).returning();
     return result[0];
   }
 }

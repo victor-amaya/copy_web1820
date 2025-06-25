@@ -38,6 +38,70 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Users API
+  app.post("/api/users", async (req, res) => {
+    try {
+      const userData = req.body;
+      
+      // Validar datos requeridos
+      if (!userData.nombres || !userData.apellidos || !userData.dni || !userData.celular || !userData.email || !userData.password) {
+        return res.status(400).json({ error: "Faltan campos obligatorios" });
+      }
+
+      // Verificar si el usuario ya existe
+      const existingUser = await storage.getUserByUsername(userData.dni);
+      if (existingUser) {
+        return res.status(409).json({ error: "Ya existe un usuario con este DNI" });
+      }
+
+      const user = await storage.createUser(userData);
+      // No devolver la contraseña en la respuesta
+      const { password, ...userResponse } = user;
+      res.status(201).json(userResponse);
+    } catch (error) {
+      console.error("Error creating user:", error);
+      res.status(500).json({ error: "Error interno del servidor" });
+    }
+  });
+
+  app.get("/api/users/:dni", async (req, res) => {
+    try {
+      const dni = req.params.dni;
+      const user = await storage.getUserByUsername(dni);
+      if (!user) {
+        return res.status(404).json({ error: "Usuario no encontrado" });
+      }
+      // No devolver la contraseña
+      const { password, ...userResponse } = user;
+      res.json(userResponse);
+    } catch (error) {
+      console.error("Error getting user:", error);
+      res.status(500).json({ error: "Error interno del servidor" });
+    }
+  });
+
+  // Block Requests API
+  app.post("/api/block-requests", async (req, res) => {
+    try {
+      const { userDni, selectedProducts } = req.body;
+      
+      if (!userDni || !selectedProducts) {
+        return res.status(400).json({ error: "Faltan datos obligatorios" });
+      }
+
+      const blockRequest = await storage.createBlockRequest({
+        userId: userDni,
+        selectedProducts: JSON.stringify(selectedProducts),
+        status: "completed"
+      });
+
+      res.status(201).json(blockRequest);
+    } catch (error) {
+      console.error("Error creating block request:", error);
+      res.status(500).json({ error: "Error interno del servidor" });
+    }
+  });
+
   const httpServer = createServer(app);
 
   return httpServer;

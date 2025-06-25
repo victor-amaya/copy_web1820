@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { UserData, SelectedProduct, Screen } from "@/lib/types";
+import { useCreateUser, useCreateBlockRequest } from "@/hooks/use-user-api";
+import { useToast } from "@/hooks/use-toast";
 import LandingScreen from "@/components/screens/LandingScreen";
 import ProductSelectionScreen from "@/components/screens/ProductSelectionScreen";
 import PersonalDataScreen from "@/components/screens/PersonalDataScreen";
@@ -19,6 +21,14 @@ export default function Web1820App() {
     email: ''
   });
   const [selectedProducts, setSelectedProducts] = useState<SelectedProduct[]>([]);
+  const [extraData, setExtraData] = useState({
+    aceptaDatos: false,
+    aceptaAnuncios: false
+  });
+  
+  const createUser = useCreateUser();
+  const createBlockRequest = useCreateBlockRequest();
+  const { toast } = useToast();
 
   const goToScreen = (screen: Screen) => {
     setCurrentScreen(screen);
@@ -36,6 +46,52 @@ export default function Web1820App() {
 
   const updateSelectedProducts = (products: SelectedProduct[]) => {
     setSelectedProducts(products);
+  };
+
+  const handleCreateAccount = async () => {
+    try {
+      if (!userData.password) {
+        toast({
+          title: "Error",
+          description: "La contraseña es requerida",
+          variant: "destructive",
+        });
+        return;
+      }
+
+      // Crear usuario
+      await createUser.mutateAsync({
+        nombres: userData.nombres,
+        apellidos: userData.apellidos,
+        dni: userData.dni,
+        celular: userData.celular,
+        email: userData.email,
+        fechaNacimiento: userData.fechaNacimiento,
+        password: userData.password,
+        aceptaDatos: extraData.aceptaDatos,
+        aceptaAnuncios: extraData.aceptaAnuncios,
+      });
+
+      // Crear solicitud de bloqueo
+      await createBlockRequest.mutateAsync({
+        userDni: userData.dni,
+        selectedProducts: selectedProducts,
+      });
+
+      toast({
+        title: "Cuenta creada exitosamente",
+        description: "Tu cuenta ha sido creada y tus productos han sido bloqueados",
+      });
+
+      goToScreen(7);
+    } catch (error: any) {
+      console.error("Error creating account:", error);
+      toast({
+        title: "Error al crear cuenta",
+        description: error.message || "Ocurrió un error al crear tu cuenta",
+        variant: "destructive",
+      });
+    }
   };
 
   const renderScreen = () => {
@@ -76,7 +132,7 @@ export default function Web1820App() {
           <AccountCreationScreen
             userData={userData}
             onUserDataChange={updateUserData}
-            onNext={() => goToScreen(7)}
+            onNext={handleCreateAccount}
             onBack={goBack}
           />
         );
