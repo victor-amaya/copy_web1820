@@ -16,15 +16,30 @@ export const users = pgTable("users", {
   createdAt: timestamp("created_at").defaultNow(),
 });
 
+export const entidadFinanciera = pgTable("entidad_financiera", {
+  id: serial("id").primaryKey(),
+  nombre: text("nombre").notNull(),
+  codigo: text("codigo").notNull().unique(),
+  logoUrl: text("logo_url"),
+  activo: boolean("activo").default(true),
+  createdAt: timestamp("created_at").defaultNow(),
+});
+
 export const blockRequests = pgTable("block_requests", {
   id: serial("id").primaryKey(),
   userId: text("user_dni").notNull(),
+  entidadFinancieraId: serial("entidad_financiera_id").references(() => entidadFinanciera.id),
   selectedProducts: text("selected_products").notNull(), // JSON string
   status: text("status").notNull().default("completed"),
   createdAt: timestamp("created_at").defaultNow(),
 });
 
 export const insertUserSchema = createInsertSchema(users).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertEntidadFinancieraSchema = createInsertSchema(entidadFinanciera).omit({
   id: true,
   createdAt: true,
 });
@@ -36,5 +51,7 @@ export const insertBlockRequestSchema = createInsertSchema(blockRequests).omit({
 
 export type InsertUser = z.infer<typeof insertUserSchema>;
 export type User = typeof users.$inferSelect;
+export type InsertEntidadFinanciera = z.infer<typeof insertEntidadFinancieraSchema>;
+export type EntidadFinanciera = typeof entidadFinanciera.$inferSelect;
 export type InsertBlockRequest = z.infer<typeof insertBlockRequestSchema>;
 export type BlockRequest = typeof blockRequests.$inferSelect;

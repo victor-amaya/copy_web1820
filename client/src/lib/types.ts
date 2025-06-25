@@ -16,6 +16,12 @@ export interface SelectedProduct {
 }
 
 export interface Bank {
+  id: number;
+  codigo: string;
+  nombre: string;
+  logoUrl: string | null;
+  activo: boolean;
+  // Propiedades de compatibilidad con el código existente
   code: string;
   name: string;
   color: string;

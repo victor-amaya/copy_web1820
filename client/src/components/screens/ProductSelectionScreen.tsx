@@ -2,13 +2,10 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Card, CardContent } from "@/components/ui/card";
-import { Building2, ArrowRight, ArrowLeft } from "lucide-react";
+import { Building2, ArrowRight, ArrowLeft, Loader2 } from "lucide-react";
 import { SelectedProduct, Bank } from "@/lib/types";
-import bbvaLogo from "@assets/BBVA_1750612279628.png";
-import bcpLogo from "@assets/BCP_1750612075168.png";
-import interbankLogo from "@assets/Interbank_1750612206510.png";
-import scotiabankLogo from "@assets/Scotiabank_1750612351732.png";
 import { CreditCard, Smartphone, Wallet } from "lucide-react";
+import { useEntidadesFinancieras } from "@/hooks/use-entidades-financieras";
 
 interface ProductSelectionScreenProps {
   selectedProducts: SelectedProduct[];
@@ -17,36 +14,7 @@ interface ProductSelectionScreenProps {
   onBack: () => void;
 }
 
-const banks: Bank[] = [
-  {
-    code: "bcp",
-    name: "Banco de Crédito",
-    color: "bg-blue-600",
-    shortName: "BCP",
-    logo: bcpLogo,
-  },
-  {
-    code: "bbva",
-    name: "BBVA",
-    color: "bg-blue-700",
-    shortName: "BBVA",
-    logo: bbvaLogo,
-  },
-  {
-    code: "interbank",
-    name: "Interbank",
-    color: "bg-teal-600",
-    shortName: "IB",
-    logo: interbankLogo,
-  },
-  {
-    code: "scotiabank",
-    name: "Scotiabank",
-    color: "bg-red-600",
-    shortName: "SB",
-    logo: scotiabankLogo,
-  },
-];
+// Los bancos ahora se obtienen de la API
 
 const productTypes = [
   {
@@ -83,10 +51,34 @@ export default function ProductSelectionScreen({
 }: ProductSelectionScreenProps) {
   const [localProducts, setLocalProducts] =
     useState<SelectedProduct[]>(selectedProducts);
+  
+  const { data: banks = [], isLoading, error } = useEntidadesFinancieras();
 
   useEffect(() => {
     onProductsChange(localProducts);
   }, [localProducts, onProductsChange]);
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-white flex items-center justify-center">
+        <div className="text-center">
+          <Loader2 className="w-8 h-8 animate-spin mx-auto mb-4 text-blue-600" />
+          <p className="text-gray-600">Cargando entidades financieras...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-white flex items-center justify-center">
+        <div className="text-center">
+          <p className="text-red-600 mb-4">Error al cargar las entidades financieras</p>
+          <Button onClick={() => window.location.reload()}>Reintentar</Button>
+        </div>
+      </div>
+    );
+  }
 
   const isProductSelected = (bankCode: string, productType: string) => {
     return localProducts.some(
