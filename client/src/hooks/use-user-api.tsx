@@ -23,11 +23,20 @@ export interface CreateBlockRequestBody {
 export const useCreateUser = () => {
   return useMutation({
     mutationFn: async (userData: CreateUserRequest) => {
-      return apiRequest({
+      const response = await fetch("/api/users", {
         method: "POST",
-        endpoint: "/api/users",
-        body: userData,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(userData),
       });
+
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.error || "Error al crear usuario");
+      }
+
+      return response.json();
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["users"] });
@@ -38,11 +47,20 @@ export const useCreateUser = () => {
 export const useCreateBlockRequest = () => {
   return useMutation({
     mutationFn: async (blockData: CreateBlockRequestBody) => {
-      return apiRequest({
+      const response = await fetch("/api/block-requests", {
         method: "POST",
-        endpoint: "/api/block-requests",
-        body: blockData,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(blockData),
       });
+
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.error || "Error al crear solicitud de bloqueo");
+      }
+
+      return response.json();
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["block-requests"] });

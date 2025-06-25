@@ -21,10 +21,8 @@ export default function Web1820App() {
     email: ''
   });
   const [selectedProducts, setSelectedProducts] = useState<SelectedProduct[]>([]);
-  const [extraData, setExtraData] = useState({
-    aceptaDatos: false,
-    aceptaAnuncios: false
-  });
+  const [aceptaDatos, setAceptaDatos] = useState(false);
+  const [aceptaAnuncios, setAceptaAnuncios] = useState(false);
   
   const createUser = useCreateUser();
   const createBlockRequest = useCreateBlockRequest();
@@ -68,8 +66,8 @@ export default function Web1820App() {
         email: userData.email,
         fechaNacimiento: userData.fechaNacimiento,
         password: userData.password,
-        aceptaDatos: extraData.aceptaDatos,
-        aceptaAnuncios: extraData.aceptaAnuncios,
+        aceptaDatos,
+        aceptaAnuncios,
       });
 
       // Crear solicitud de bloqueo
@@ -131,7 +129,13 @@ export default function Web1820App() {
         return (
           <AccountCreationScreen
             userData={userData}
-            onUserDataChange={updateUserData}
+            onUserDataChange={(data) => {
+              updateUserData(data);
+              // Capturar datos de aceptación de la pantalla
+              if (data.fechaNacimiento && data.password) {
+                setAceptaDatos(true); // Por defecto true cuando completa la pantalla
+              }
+            }}
             onNext={handleCreateAccount}
             onBack={goBack}
           />
