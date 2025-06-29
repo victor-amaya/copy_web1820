@@ -10,8 +10,8 @@ import {
   ClipboardList,
   FileText,
   Info,
-  Home,
 } from "lucide-react";
+import { useLocation } from "wouter";
 import asbancLogo from "@assets/Asbanc_1750611947153.png";
 
 interface LandingScreenProps {
@@ -71,6 +71,40 @@ const services = [
 ];
 
 export default function LandingScreen({ onNext }: LandingScreenProps) {
+  const [, setLocation] = useLocation();
+
+  const handleServiceClick = (serviceTitle: string) => {
+    switch (serviceTitle) {
+      case "Bloqueo de tarjetas y cuentas": {
+        setLocation("/coming-soon/Bloqueo de tarjetas y cuentas");
+        break;
+      }
+      case "Bloqueo de apps": {
+        setLocation("/coming-soon/Bloqueo de apps");
+        break;
+      }
+      case "Bloqueo de número de teléfono": {
+        setLocation("/coming-soon/Bloqueo de número de teléfono");
+        break;
+      }
+      case "Denuncia Policial": {
+        setLocation("/coming-soon/Denuncia Policial");
+        break;
+      }
+      case "Registro de reclamo": {
+        setLocation("/coming-soon/Registro de reclamo");
+        break;
+      }
+      case "Trámite de duplicado de documentos": {
+        setLocation("/coming-soon/Trámite de duplicado de documentos");
+        break;
+      }
+      case "Información relevante": {
+        setLocation("/coming-soon/Información relevante");
+        break;
+      }
+    }
+  };
   return (
     <div
       className="min-h-screen flex items-center justify-center px-4"
@@ -248,6 +282,7 @@ export default function LandingScreen({ onNext }: LandingScreenProps) {
                   <Card
                     key={index}
                     className="hover:shadow-xl transition-shadow cursor-pointer"
+                    onClick={() => handleServiceClick(service.title)}
                   >
                     <CardContent className="p-6">
                       <div

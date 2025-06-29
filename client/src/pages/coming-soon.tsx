@@ -1,6 +1,12 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
 import { ArrowLeft, Send, Clock } from "lucide-react";
 import { Link, useParams } from "wouter";
@@ -12,12 +18,19 @@ interface ComingSoonProps {
   serviceType?: string;
 }
 
-export default function ComingSoon({ serviceType: propServiceType }: ComingSoonProps) {
+export default function ComingSoon({
+  serviceType: propServiceType,
+}: ComingSoonProps) {
   const [comment, setComment] = useState("");
   const { toast } = useToast();
   const queryClient = useQueryClient();
   const params = useParams();
-  const serviceType = propServiceType || params.serviceType || "Bloqueo de tarjetas y cuentas";
+  const serviceType =
+    propServiceType || params.serviceType || "Bloqueo de tarjetas y cuentas";
+
+  const volver = () => {
+    window.history.back();
+  };
 
   const submitFeedback = useMutation({
     mutationFn: async (data: { serviceType: string; comment: string }) => {
@@ -26,7 +39,8 @@ export default function ComingSoon({ serviceType: propServiceType }: ComingSoonP
     onSuccess: () => {
       toast({
         title: "¡Comentario enviado!",
-        description: "Gracias por tu feedback. Te notificaremos cuando esté disponible.",
+        description:
+          "Gracias por tu feedback. Te notificaremos cuando esté disponible.",
       });
       setComment("");
       queryClient.invalidateQueries({ queryKey: ["service-feedback"] });
@@ -34,7 +48,9 @@ export default function ComingSoon({ serviceType: propServiceType }: ComingSoonP
     onError: (error: any) => {
       toast({
         title: "Error",
-        description: error.message || "No se pudo enviar el comentario. Inténtalo de nuevo.",
+        description:
+          error.message ||
+          "No se pudo enviar el comentario. Inténtalo de nuevo.",
         variant: "destructive",
       });
     },
@@ -54,12 +70,19 @@ export default function ComingSoon({ serviceType: propServiceType }: ComingSoonP
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-white px-4 py-8" style={{ fontFamily: 'Barlow, sans-serif' }}>
+    <div
+      className="min-h-screen bg-gradient-to-br from-blue-50 to-white px-4 py-8"
+      style={{ fontFamily: "Barlow, sans-serif" }}
+    >
       <div className="max-w-2xl mx-auto">
         {/* Header */}
         <div className="mb-8">
           <Link href="/services">
-            <Button variant="ghost" className="mb-4 text-purple-600 hover:text-purple-700">
+            <Button
+              onClick={volver}
+              variant="ghost"
+              className="mb-4 text-purple-600 hover:text-purple-700"
+            >
               <ArrowLeft className="w-4 h-4 mr-2" />
               Volver a servicios
             </Button>
@@ -72,24 +95,34 @@ export default function ComingSoon({ serviceType: propServiceType }: ComingSoonP
             <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
               <Clock className="w-8 h-8 text-purple-600" />
             </div>
-            <CardTitle className="text-2xl font-bold text-gray-900" style={{ fontFamily: 'Barlow, sans-serif' }}>
+            <CardTitle
+              className="text-2xl font-bold text-gray-900"
+              style={{ fontFamily: "Barlow, sans-serif" }}
+            >
               Próximamente
             </CardTitle>
-            <CardDescription className="text-lg text-gray-600" style={{ fontFamily: 'Barlow, sans-serif' }}>
+            <CardDescription
+              className="text-lg text-gray-600"
+              style={{ fontFamily: "Barlow, sans-serif" }}
+            >
               {serviceType}
             </CardDescription>
           </CardHeader>
 
           <CardContent className="space-y-6">
             <div className="text-center">
-              <p className="text-gray-600 mb-4" style={{ fontFamily: 'Barlow, sans-serif' }}>
-                Estamos trabajando en esta funcionalidad para brindarte la mejor experiencia.
-                Mientras tanto, nos encantaría conocer tu opinión.
+              <p
+                className="text-gray-600 mb-4"
+                style={{ fontFamily: "Barlow, sans-serif" }}
+              >
+                Estamos trabajando en esta funcionalidad para brindarte la mejor
+                experiencia.
+                {/*Mientras tanto, nos encantaría conocer tu opinión.*/}
               </p>
             </div>
 
             {/* Feedback Form */}
-            <form onSubmit={handleSubmit} className="space-y-4">
+            {/*<form onSubmit={handleSubmit} className="space-y-4">
               <div>
                 <label htmlFor="comment" className="block text-sm font-medium text-gray-700 mb-2" style={{ fontFamily: 'Barlow, sans-serif' }}>
                   Comparte tus comentarios o sugerencias
@@ -132,7 +165,7 @@ export default function ComingSoon({ serviceType: propServiceType }: ComingSoonP
 
             <div className="text-center text-sm text-gray-500" style={{ fontFamily: 'Barlow, sans-serif' }}>
               Tu feedback nos ayuda a mejorar nuestros servicios
-            </div>
+            </div>*/}
           </CardContent>
         </Card>
       </div>
