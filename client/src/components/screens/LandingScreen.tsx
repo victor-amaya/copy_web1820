@@ -49,6 +49,70 @@ export default function LandingScreen({ onNext }: LandingScreenProps) {
             />
           </div>
         </div>
+
+        {/* Sección ¿Cómo funciona? */}
+        <div className="mt-16 md:mt-24 text-center">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4" style={{ fontFamily: 'Barlow, sans-serif' }}>
+            ¿Cómo funciona?
+          </h2>
+          <p className="text-lg text-gray-600 mb-8" style={{ fontFamily: 'Barlow, sans-serif' }}>
+            Sigue estos simples pasos para bloquear tus tarjetas y productos.
+          </p>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-12">
+            {/* Paso 1 */}
+            <div className="bg-gray-100 rounded-lg p-6 text-center">
+              <div className="bg-white rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-4 shadow-md">
+                <span className="text-xl font-bold text-primary">1</span>
+              </div>
+              <h3 className="font-bold text-gray-900 mb-2" style={{ fontFamily: 'Barlow, sans-serif' }}>
+                Paso 1
+              </h3>
+              <p className="text-sm text-gray-600" style={{ fontFamily: 'Barlow, sans-serif' }}>
+                Selecciona tus tarjetas...
+              </p>
+            </div>
+
+            {/* Paso 2 */}
+            <div className="bg-gray-100 rounded-lg p-6 text-center">
+              <div className="bg-white rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-4 shadow-md">
+                <span className="text-xl font-bold text-primary">2</span>
+              </div>
+              <h3 className="font-bold text-gray-900 mb-2" style={{ fontFamily: 'Barlow, sans-serif' }}>
+                Paso 2
+              </h3>
+              <p className="text-sm text-gray-600" style={{ fontFamily: 'Barlow, sans-serif' }}>
+                Ingresa tus datos perso...
+              </p>
+            </div>
+
+            {/* Paso 3 */}
+            <div className="bg-gray-100 rounded-lg p-6 text-center">
+              <div className="bg-white rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-4 shadow-md">
+                <span className="text-xl font-bold text-primary">3</span>
+              </div>
+              <h3 className="font-bold text-gray-900 mb-2" style={{ fontFamily: 'Barlow, sans-serif' }}>
+                Paso 3
+              </h3>
+              <p className="text-sm text-gray-600" style={{ fontFamily: 'Barlow, sans-serif' }}>
+                Espera la confirmacio...
+              </p>
+            </div>
+
+            {/* Paso 4 */}
+            <div className="bg-gray-100 rounded-lg p-6 text-center">
+              <div className="bg-white rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-4 shadow-md">
+                <span className="text-xl font-bold text-primary">4</span>
+              </div>
+              <h3 className="font-bold text-gray-900 mb-2" style={{ fontFamily: 'Barlow, sans-serif' }}>
+                Paso 4
+              </h3>
+              <p className="text-sm text-gray-600" style={{ fontFamily: 'Barlow, sans-serif' }}>
+                Crea tu cuenta y co...
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
