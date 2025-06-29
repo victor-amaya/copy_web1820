@@ -79,18 +79,36 @@ export default function Web1820App() {
         aceptaAnuncios
       });
 
-      // Crear usuario
-      await createUser.mutateAsync({
-        nombres: userData.nombres,
-        apellidos: userData.apellidos,
-        dni: userData.dni,
-        celular: userData.celular,
-        email: userData.email,
-        fechaNacimiento: userData.fechaNacimiento,
-        password: userData.password,
-        aceptaDatos,
-        aceptaAnuncios,
-      });
+      let userExists = false;
+      
+      // Intentar crear usuario
+      try {
+        await createUser.mutateAsync({
+          nombres: userData.nombres,
+          apellidos: userData.apellidos,
+          dni: userData.dni,
+          celular: userData.celular,
+          email: userData.email,
+          fechaNacimiento: userData.fechaNacimiento,
+          password: userData.password,
+          aceptaDatos,
+          aceptaAnuncios,
+        });
+      } catch (userError: any) {
+        // Si el error es por DNI duplicado, continuar con el proceso
+        if (userError.message && userError.message.includes("Ya existe un usuario con este DNI")) {
+          userExists = true;
+        } else {
+          // Si es otro tipo de error, mostrar mensaje y salir
+          console.error("Error creating account:", userError);
+          toast({
+            title: "Error al crear cuenta",
+            description: userError.message || "Ocurrió un error al crear tu cuenta",
+            variant: "destructive",
+          });
+          return;
+        }
+      }
 
       // Crear solicitud de bloqueo
       await createBlockRequest.mutateAsync({
@@ -98,17 +116,25 @@ export default function Web1820App() {
         selectedProducts: selectedProducts,
       });
 
-      toast({
-        title: "Cuenta creada exitosamente",
-        description: "Tu cuenta ha sido creada y tus productos han sido bloqueados",
-      });
+      // Mostrar mensaje apropiado según si la cuenta ya existía
+      if (userExists) {
+        toast({
+          title: "Solicitud procesada",
+          description: "Ya tienes una cuenta registrada. Tus productos han sido bloqueados exitosamente",
+        });
+      } else {
+        toast({
+          title: "Cuenta creada exitosamente",
+          description: "Tu cuenta ha sido creada y tus productos han sido bloqueados",
+        });
+      }
 
       goToScreen(7);
     } catch (error: any) {
-      console.error("Error creating account:", error);
+      console.error("Error creating block request:", error);
       toast({
-        title: "Error al crear cuenta",
-        description: error.message || "Ocurrió un error al crear tu cuenta",
+        title: "Error al procesar solicitud",
+        description: error.message || "Ocurrió un error al procesar tu solicitud",
         variant: "destructive",
       });
     }

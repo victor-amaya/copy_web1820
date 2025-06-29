@@ -108,6 +108,8 @@ Web 1820 is a banking security platform that allows users to instantly block the
 - **June 25, 2025**: Added complete CRUD API for block requests management with status updates
 - **June 29, 2025**: Fixed bank logo display issues and configured static file serving
 - **June 29, 2025**: Enhanced landing page with "¿Cómo funciona?" section showing 4-step process
+- **June 29, 2025**: Created service feedback system with "Próximamente" page for future services
+- **June 29, 2025**: Modified account creation flow to handle duplicate DNI gracefully
 
 ## User Preferences
 
