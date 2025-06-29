@@ -53,9 +53,23 @@ export const insertBlockRequestSchema = createInsertSchema(blockRequests).omit({
   createdAt: true,
 });
 
+export const serviceFeedback = pgTable("service_feedback", {
+  id: serial("id").primaryKey(),
+  serviceType: text("service_type").notNull(),
+  comment: text("comment").notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+export const insertServiceFeedbackSchema = createInsertSchema(serviceFeedback).omit({
+  id: true,
+  createdAt: true,
+});
+
 export type InsertUser = z.infer<typeof insertUserSchema>;
 export type User = typeof users.$inferSelect;
 export type InsertEntidadFinanciera = z.infer<typeof insertEntidadFinancieraSchema>;
 export type EntidadFinanciera = typeof entidadFinanciera.$inferSelect;
 export type InsertBlockRequest = z.infer<typeof insertBlockRequestSchema>;
 export type BlockRequest = typeof blockRequests.$inferSelect;
+export type InsertServiceFeedback = z.infer<typeof insertServiceFeedbackSchema>;
+export type ServiceFeedback = typeof serviceFeedback.$inferSelect;

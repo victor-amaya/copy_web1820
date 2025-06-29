@@ -10,6 +10,7 @@ import {
   Info, 
   Home 
 } from "lucide-react";
+import { useLocation } from "wouter";
 import asbancLogo from "@assets/Asbanc_1750611947153.png";
 
 interface ServicesScreenProps {
@@ -62,6 +63,14 @@ const services = [
 ];
 
 export default function ServicesScreen({ onGoHome }: ServicesScreenProps) {
+  const [, setLocation] = useLocation();
+
+  const handleServiceClick = (serviceTitle: string) => {
+    if (serviceTitle === "Bloqueo de tarjetas y cuentas") {
+      setLocation("/coming-soon/Bloqueo de tarjetas y cuentas");
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gray-50 py-12" style={{ fontFamily: 'Barlow, sans-serif' }}>
       <div className="max-w-6xl mx-auto px-4">
@@ -76,7 +85,11 @@ export default function ServicesScreen({ onGoHome }: ServicesScreenProps) {
           {services.map((service, index) => {
             const IconComponent = service.icon;
             return (
-              <Card key={index} className="hover:shadow-xl transition-shadow cursor-pointer">
+              <Card 
+                key={index} 
+                className="hover:shadow-xl transition-shadow cursor-pointer"
+                onClick={() => handleServiceClick(service.title)}
+              >
                 <CardContent className="p-6">
                   <div className={`w-16 h-16 ${service.color} rounded-lg flex items-center justify-center mb-4`}>
                     <IconComponent className="w-8 h-8" />

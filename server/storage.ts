@@ -1,4 +1,4 @@
-import { users, entidadFinanciera, blockRequests, type User, type InsertUser, type EntidadFinanciera, type InsertEntidadFinanciera, type BlockRequest, type InsertBlockRequest } from "@shared/schema";
+import { users, entidadFinanciera, blockRequests, serviceFeedback, type User, type InsertUser, type EntidadFinanciera, type InsertEntidadFinanciera, type BlockRequest, type InsertBlockRequest, type ServiceFeedback, type InsertServiceFeedback } from "@shared/schema";
 import { db } from "./db";
 import { eq } from "drizzle-orm";
 
@@ -16,6 +16,8 @@ export interface IStorage {
   getBlockRequests(): Promise<BlockRequest[]>;
   getBlockRequestsByUser(userDni: string): Promise<BlockRequest[]>;
   updateBlockRequestStatus(id: number, status: string, processedAt?: Date): Promise<BlockRequest | undefined>;
+  createServiceFeedback(feedback: InsertServiceFeedback): Promise<ServiceFeedback>;
+  getServiceFeedback(): Promise<ServiceFeedback[]>;
 }
 
 export class MemStorage implements IStorage {
