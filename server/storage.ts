@@ -133,6 +133,18 @@ export class DbStorage implements IStorage {
       .returning();
     return result[0];
   }
+
+  async createServiceFeedback(insertFeedback: InsertServiceFeedback): Promise<ServiceFeedback> {
+    const [feedback] = await db
+      .insert(serviceFeedback)
+      .values(insertFeedback)
+      .returning();
+    return feedback;
+  }
+
+  async getServiceFeedback(): Promise<ServiceFeedback[]> {
+    return await db.select().from(serviceFeedback).orderBy(serviceFeedback.createdAt);
+  }
 }
 
 export const storage = new DbStorage();

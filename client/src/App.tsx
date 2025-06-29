@@ -11,7 +11,9 @@ function Router() {
   return (
     <Switch>
       <Route path="/" component={Web1820App} />
-      <Route path="/coming-soon/:serviceType?" component={ComingSoon} />
+      <Route path="/coming-soon/:serviceType?">
+        {(params) => <ComingSoon serviceType={params.serviceType} />}
+      </Route>
       <Route component={NotFound} />
     </Switch>
   );
