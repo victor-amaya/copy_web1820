@@ -6,6 +6,7 @@ import { Building2, ArrowRight, ArrowLeft, Loader2 } from "lucide-react";
 import { SelectedProduct, Bank } from "@/lib/types";
 import { CreditCard, Smartphone, Wallet } from "lucide-react";
 import { useEntidadesFinancieras } from "@/hooks/use-entidades-financieras";
+import { ALL } from "dns";
 
 interface ProductSelectionScreenProps {
   selectedProducts: SelectedProduct[];
@@ -51,7 +52,7 @@ export default function ProductSelectionScreen({
 }: ProductSelectionScreenProps) {
   const [localProducts, setLocalProducts] =
     useState<SelectedProduct[]>(selectedProducts);
-  
+
   const { data: banks = [], isLoading, error } = useEntidadesFinancieras();
 
   useEffect(() => {
@@ -73,7 +74,9 @@ export default function ProductSelectionScreen({
     return (
       <div className="min-h-screen bg-gradient-to-br from-blue-50 to-white flex items-center justify-center">
         <div className="text-center">
-          <p className="text-red-600 mb-4">Error al cargar las entidades financieras</p>
+          <p className="text-red-600 mb-4">
+            Error al cargar las entidades financieras
+          </p>
           <Button onClick={() => window.location.reload()}>Reintentar</Button>
         </div>
       </div>
@@ -126,6 +129,9 @@ export default function ProductSelectionScreen({
           <p className="text-lg sm:text-xl text-gray-600 mb-2">
             Marca todas las opciones que correspondan a tus productos bancarios
           </p>
+          <p className="text-lg sm:text-sm text-gray-600 mb-2">
+            * Para volver a tener acceso a tus productos, deberás contactar a tu entidad financiera.
+          </p>
           <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto rounded-full"></div>
         </div>
 
@@ -136,8 +142,15 @@ export default function ProductSelectionScreen({
               <div className="font-semibold text-gray-700 text-lg">
                 Entidad Financiera
               </div>
-              {productTypes.map((product) => (
+              {productTypes.map((product, index) => (
                 <div key={product.key} className="text-center">
+                  <Checkbox
+                    onCheckedChange={() =>
+                      banks.map((bank) =>
+                        toggleProduct(bank, productTypes[index]),
+                      )
+                    }
+                  />
                   <div className="flex flex-col items-center space-y-2">
                     {product.icon}
                     <span className="font-medium text-gray-700 text-sm leading-tight">
@@ -157,13 +170,23 @@ export default function ProductSelectionScreen({
               >
                 <div className="grid grid-cols-5 gap-4 items-center">
                   <div className="flex items-center space-x-3">
-                    <img 
-                      src={entity.logo} 
-                      alt={entity.name} 
+                    <Checkbox
+                      onCheckedChange={() =>
+                        productTypes.map((product) =>
+                          toggleProduct(entity, product),
+                        )
+                      }
+                    />
+                    <img
+                      src={entity.logo}
+                      alt={entity.name}
                       className="w-12 h-12 object-contain rounded-lg"
                       onError={(e) => {
-                        console.error(`Failed to load logo for ${entity.name}:`, entity.logo);
-                        e.currentTarget.style.display = 'none';
+                        console.error(
+                          `Failed to load logo for ${entity.name}:`,
+                          entity.logo,
+                        );
+                        e.currentTarget.style.display = "none";
                       }}
                     />
                     <span className="font-semibold text-gray-800 text-lg">
@@ -193,15 +216,21 @@ export default function ProductSelectionScreen({
         {/* Mobile Card View */}
         <div className="md:hidden space-y-4">
           {banks.map((entity) => (
-            <div key={entity.name} className="bg-white rounded-xl shadow-lg border border-gray-100 p-4">
+            <div
+              key={entity.name}
+              className="bg-white rounded-xl shadow-lg border border-gray-100 p-4"
+            >
               <div className="flex items-center space-x-3 mb-4 pb-4 border-b border-gray-100">
-                <img 
-                  src={entity.logo} 
-                  alt={entity.name} 
+                <img
+                  src={entity.logo}
+                  alt={entity.name}
                   className="w-10 h-10 object-contain rounded-lg"
                   onError={(e) => {
-                    console.error(`Failed to load logo for ${entity.name}:`, entity.logo);
-                    e.currentTarget.style.display = 'none';
+                    console.error(
+                      `Failed to load logo for ${entity.name}:`,
+                      entity.logo,
+                    );
+                    e.currentTarget.style.display = "none";
                   }}
                 />
                 <span className="font-semibold text-gray-800 text-lg">
@@ -211,7 +240,10 @@ export default function ProductSelectionScreen({
 
               <div className="grid grid-cols-2 gap-3">
                 {productTypes.map((product) => (
-                  <div key={product.key} className={`p-3 rounded-lg ${product.color} transition-colors`}>
+                  <div
+                    key={product.key}
+                    className={`p-3 rounded-lg ${product.color} transition-colors`}
+                  >
                     <div className="flex items-center justify-between">
                       <div className="flex items-center space-x-2">
                         {product.icon}
