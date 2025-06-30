@@ -18,7 +18,8 @@ export default function Web1820App() {
     apellidos: '',
     dni: '',
     celular: '',
-    email: ''
+    email: '',
+    password: '12345678',
   });
   const [selectedProducts, setSelectedProducts] = useState<SelectedProduct[]>([]);
   const [aceptaDatos, setAceptaDatos] = useState(false);
@@ -54,15 +55,15 @@ export default function Web1820App() {
   const handleCreateAccount = async () => {
     try {
       // Validar campos requeridos
-      if (!userData.nombres || !userData.apellidos || !userData.dni || !userData.celular || !userData.email || !userData.password) {
+      if (!userData.nombres || !userData.apellidos || !userData.dni || !userData.celular || !userData.email /*|| !userData.password*/) {
         const missingFields = [];
         if (!userData.nombres) missingFields.push("nombres");
         if (!userData.apellidos) missingFields.push("apellidos"); 
         if (!userData.dni) missingFields.push("DNI");
         if (!userData.celular) missingFields.push("celular");
         if (!userData.email) missingFields.push("email");
-        if (!userData.password) missingFields.push("contraseña");
-        
+        //if (!userData.password) missingFields.push("contraseña");
+        console.log("Missing fields:", missingFields);
         toast({
           title: "Campos faltantes",
           description: `Por favor completa: ${missingFields.join(", ")}`,
@@ -72,7 +73,7 @@ export default function Web1820App() {
       }
 
       console.log("Current userData state:", userData);
-      console.log("Creating user with data:", {
+      console.log("Creating user with data VA:", {
         ...userData,
         password: userData.password ? "***hidden***" : "NO PASSWORD SET",
         aceptaDatos,

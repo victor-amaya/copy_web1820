@@ -22,7 +22,8 @@ export default function AccountCreationScreen({
 }: AccountCreationScreenProps) {
   const [formData, setFormData] = useState({
     fechaNacimiento: userData.fechaNacimiento || '',
-    password: userData.password || '',
+    //password: userData.password || '',
+    password: '',
     passwordConfirm: '',
     aceptaDatos: false,
     aceptaAnuncios: false
@@ -60,7 +61,7 @@ export default function AccountCreationScreen({
         }
         break;
     }
-
+    console.log(error);
     setErrors(prev => ({ ...prev, [name]: error }));
     return error === '';
   };
@@ -80,7 +81,8 @@ export default function AccountCreationScreen({
       const value = formData[field as keyof typeof formData];
       return value && !errors[field];
     });
-    
+
+    console.log("All fields valid:", formData);
     const requiredCheckboxValid = formData.aceptaDatos;
     
     setIsValid(allFieldsValid && requiredCheckboxValid);

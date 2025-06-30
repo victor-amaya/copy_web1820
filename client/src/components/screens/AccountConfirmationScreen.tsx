@@ -71,7 +71,7 @@ export default function AccountConfirmationScreen({
                 <ArrowLeft className="w-5 h-5 mr-2" />
                 Regresar
               </Button>
-
+              {/* Botón para ver servicios 
               <Button
                 onClick={onViewServices}
                 size="lg"
@@ -84,7 +84,7 @@ export default function AccountConfirmationScreen({
                 }}
               >
                 Ver servicios
-              </Button>
+              </Button>*/}
             </div>
           </CardContent>
         </Card>

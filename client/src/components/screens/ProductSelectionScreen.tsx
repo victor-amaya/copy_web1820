@@ -130,7 +130,8 @@ export default function ProductSelectionScreen({
             Marca todas las opciones que correspondan a tus productos bancarios
           </p>
           <p className="text-lg sm:text-sm text-gray-600 mb-2">
-            * Para volver a tener acceso a tus productos, deberás contactar a tu entidad financiera.
+            * Para volver a tener acceso a tus productos, deberás contactar a tu
+            entidad financiera.
           </p>
           <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto rounded-full"></div>
         </div>
@@ -145,11 +146,13 @@ export default function ProductSelectionScreen({
               {productTypes.map((product, index) => (
                 <div key={product.key} className="text-center">
                   <Checkbox
-                    onCheckedChange={() =>
-                      banks.map((bank) =>
-                        toggleProduct(bank, productTypes[index]),
-                      )
-                    }
+                    onCheckedChange={(e) => {
+                      banks.map((bank) => {
+                        if (isProductSelected(bank.code, product.key) != e) {
+                          toggleProduct(bank, productTypes[index]);
+                        }
+                      });
+                    }}
                   />
                   <div className="flex flex-col items-center space-y-2">
                     {product.icon}
@@ -171,10 +174,14 @@ export default function ProductSelectionScreen({
                 <div className="grid grid-cols-5 gap-4 items-center">
                   <div className="flex items-center space-x-3">
                     <Checkbox
-                      onCheckedChange={() =>
-                        productTypes.map((product) =>
-                          toggleProduct(entity, product),
-                        )
+                      onCheckedChange={(e) =>
+                        productTypes.map((product) => {
+                          if (
+                            isProductSelected(entity.code, product.key) != e
+                          ) {
+                            toggleProduct(entity, product);
+                          }
+                        })
                       }
                     />
                     <img
@@ -221,6 +228,13 @@ export default function ProductSelectionScreen({
               className="bg-white rounded-xl shadow-lg border border-gray-100 p-4"
             >
               <div className="flex items-center space-x-3 mb-4 pb-4 border-b border-gray-100">
+                <Checkbox
+                  onCheckedChange={() =>
+                    productTypes.map((product) =>
+                      toggleProduct(entity, product),
+                    )
+                  }
+                />
                 <img
                   src={entity.logo}
                   alt={entity.name}

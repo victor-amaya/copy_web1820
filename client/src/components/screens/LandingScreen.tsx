@@ -76,7 +76,8 @@ export default function LandingScreen({ onNext }: LandingScreenProps) {
   const handleServiceClick = (serviceTitle: string) => {
     switch (serviceTitle) {
       case "Bloqueo de tarjetas y cuentas": {
-        setLocation("/coming-soon/Bloqueo de tarjetas y cuentas");
+        /*setLocation("/coming-soon/Bloqueo de tarjetas y cuentas");*/
+        onNext();
         break;
       }
       case "Bloqueo de apps": {
@@ -87,8 +88,8 @@ export default function LandingScreen({ onNext }: LandingScreenProps) {
         setLocation("/coming-soon/Bloqueo de número de teléfono");
         break;
       }
-      case "Denuncia Policial": {
-        setLocation("/coming-soon/Denuncia Policial");
+      case "Denuncia policial": {
+        setLocation("/coming-soon/Denuncia policial");
         break;
       }
       case "Registro de reclamo": {
